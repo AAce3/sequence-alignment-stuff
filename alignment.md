@@ -76,7 +76,7 @@ Firstly, when two strings are very similar, they tend to form "streaks" along di
 
 The way that the grid ends up being filled out is actually really dependent on these streaks. For example, most of the elements with edit distance 1 are just "extensions" on the long streak with edit distance 0.
 
-Let's try to formulate an algorithm that takes advantage of this. We will iterate over edit distance, and try to compute each element that has edit distance $0, 1, 2...$ respectively. We will refer to the set of all matrix elements with edit distance $n$ as the $n$th wave.
+Let's try to formulate an algorithm that takes advantage of this. We will iterate over edit distance, and try to compute each element that has edit distance $0, 1, 2...$ respectively. We will refer to the set of all matrix elements with edit distance $n$ as the $n$ th wave.
 
 For each wave, you compute the members of the next wave with two key steps:
 
@@ -97,7 +97,7 @@ In order to compute the edit distance, we initialize one of these paths for ever
 
 However, there are a few more optimizations we can perform. 
 
-Firstly, we don't have to keep track of every single path. Instead, we can keep track of the path-endings, represented by the dots. Notice how this is similar to the wavefront algorithm: For the $n$th "path ending" , the dots corresponds to the furthest-reaching element of wave $n$ on each diagonal. 
+Firstly, we don't have to keep track of every single path. Instead, we can keep track of the path-endings, represented by the dots. Notice how this is similar to the wavefront algorithm: For the $n$ th "path ending" , the dots corresponds to the furthest-reaching element of wave $n$ on each diagonal. 
 
 Additionally, to save time and space, we can do a little bit of pruning. Let's suppose that we initialize a path on diagonal $d$. After $n$ iterations (i.e. edit distance $n$), the unlucky diagonal didn't have a single match. However, its neighbor path was able to get many, many matches. The neighbor path then extends a little sub-path onto diagonal $d$, representing an insertion or deletion operation, and overtakes it. 
 
