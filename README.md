@@ -1,3 +1,3 @@
 # Helper for your project
 
-Look in ![alt text](alignment.md)
+Look in [alignment.md](alignment.md)
