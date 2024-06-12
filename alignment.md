@@ -18,7 +18,7 @@ How do we do this algorithmically?
 Well, let's model the three different types of changes. Suppose we have the strings $a = a_1a_2...a_i$ and $b = b_1b_2...b_j$. Consider the very first characters, $a_i$ and $b_j$, and we are counting how many edits it takes to transfrom a to b.
 
 1. If $a_j = b_i$, then it's pretty clear that $editDistance(a_1...a_i, b_1...b_j) = editDistance(a_1...a_{i-1}, b_1...b_{j-1})$, because we don't have to edit anything.
-2. Otherwise, let's try modeling a substitution. In this case, we swap out $a_i$ for $b_j$, giving us $1 + editDistance(a_1...a_{i-1}b_j, b_1...b_j) = 1 + editDistance(a_1...a_{i-1}, b_1...b_{j-1})$, by the above formulation, as the $i$th element of a equals the $j$th element of b, which is $b_j$. Also note that we're adding 1, because the swap itself is an operation and increases edit distance
+2. Otherwise, let's try modeling a substitution. In this case, we swap out $a_i$ for $b_j$, giving us $1 + editDistance(a_1...a_{i-1}b_j, b_1...b_j) = 1 + editDistance(a_1...a_{i-1}, b_1...b_{j-1})$, by the above formulation, as the $i$ th element of a equals the $j$ th element of b, which is $b_j$. Also note that we're adding 1, because the swap itself is an operation and increases edit distance
 3. Now, a deletion. We delete the ith of the first string, giving us $1 + editDistance(a_1...a_{i-1}, b_1...b_j)$. 
 4. Finally, let's try an insertion. This means we append $b_j$, giving us $1 + editDistance(1 + editDistance(a_1...a_ib_j, b_1...b_j)$, which is equivalent to $1 + editDistance(a_1...a_i, b_1...b_{j-1})$. Note that this is equivalent to deleting the last letter of the second string.
 
