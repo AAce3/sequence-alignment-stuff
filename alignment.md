@@ -99,16 +99,19 @@ However, there are a few more optimizations we can perform.
 
 Firstly, we don't have to keep track of every single path. Instead, we can keep track of the path-endings, represented by the dots. Notice how this is similar to the wavefront algorithm: For the $n$th "path ending" , the dots corresponds to the furthest-reaching element of wave $n$ on each diagonal. 
 
-Additionally, to save time and space, we can do a little bit of pruning. Let's suppose that we initialize a path on diagonal $d$. After $n$ iterations (i.e. edit distance $n$), the unlucky diagonal didn't have a single match. However, its neighbor path was able to get many, many matches. The neighbor path then extends a little sub-path onto diagonal $d$, and overtakes it. 
+Additionally, to save time and space, we can do a little bit of pruning. Let's suppose that we initialize a path on diagonal $d$. After $n$ iterations (i.e. edit distance $n$), the unlucky diagonal didn't have a single match. However, its neighbor path was able to get many, many matches. The neighbor path then extends a little sub-path onto diagonal $d$, representing an insertion or deletion operation, and overtakes it. 
 
 ![alt text](image-1.png)
 ![alt text](image-4.png)
 
-Algorithmically, it's impossibly for our unlucky path to overtake the more dominant path. 
+Algorithmically, it's impossibly for our unlucky path to overtake the more dominant path. Thus, we can basically forget about it.
 
-Thus, instead of storing path endings for each path beginning at each diagonal,
+When combined with only storing the ends of paths (or the wave-fronts), this means that we only actually have to store an array of numbers, representing exactly how far we've extended each path. Then, when the time comes, each "path" can check its neighbors to see if it's possible for that neighbor to overtake it. If so, it can update its own length accordingly. Otherwise, it keeps extending.
 
+Thus, in each iteration, we do the following:
 
+1. For each path, check if it can be overtaken by substitution or deletion operations from any of its neighbors. Otherwise, increment its value by 1, representing a substitution
+2. Then, extend as far as possible on a matching diagonal, similar to how we did for the original wave algorithm.
 
 This, our pseudocode:
 
